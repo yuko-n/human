@@ -15,28 +15,12 @@ class GCS {
 	public:
 		double longtitude;
 		double latitude;
-		vector<double> miliage;
-		vector<double> longs;
-		vector<double> lats;
 		double path;
 		double way;
+		vector<double> miliage;
 		GCS (double longt, double latit) {
-			if (longt >= 0 && longt <= 180) {
-				longtitude = longt;
-				longs.push_back(longtitude);
-			}
-			else {
-				cout << "ОШИБКА: Неверно задана долгота" << endl;
-				longtitude = -1;
-			}
-			if (latit >= 0 && latit <= 90) {
-				latitude = latit;
-				lats.push_back(latitude);
-			}	
-			else {
-				cout << "ОШИБКА: Неверно задана широта" << endl;
-				latitude = -1;
-			}
+			longtitude = longt;
+			latitude = latit;
 			way = 0;
 			path = 0;
 		}
@@ -62,14 +46,12 @@ class GCS {
 			speed = (rand()%5 + 1);
 			int quarter_1 = rand() % 4 + 1;
 			int quarter_2 = rand() % 4 + 1;
-			double new_long = longtitude;
-			double new_lat = latitude;
+			double past_long = longtitude;
+			double past_lat = latitude;
 			latitude = latitude + pow(-1, quarter_1)*(0.009*speed*step);
 			longtitude = longtitude + pow(-1, quarter_2)*(0.009*speed*step);
 			printf("%lf\t%lf\t%lf\t%lf\n", longtitude, latitude, step, speed);
-			longs.push_back(longtitude); 
-			lats.push_back(latitude);
-			walk_mileage(new_long, new_lat);
+			walk_mileage(past_long, past_lat);
 		}
 
 		void walk_mileage(double lon1, double lat1) {
